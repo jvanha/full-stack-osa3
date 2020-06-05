@@ -1,7 +1,7 @@
-POST https://calm-plateau-76233.herokuapp.com/api/persons
+POST http://localhost:3001/api/persons
 Content-Type: application/json
 
 {
   "name": "Mary Poppendieck", 
-  "number": "39"
+  "number": "3943534534534"
 }
