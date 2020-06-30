@@ -19,32 +19,6 @@ morgan.token('body', (req) => {
   return ''
 })
 
-
-
-let persons = [
-  { 
-    "name": "Arto Hellas", 
-    "number": "040-123456",
-    "id": 1
-  },
-  { 
-    "name": "Ada Lovelace", 
-    "number": "39-44-5323523",
-    "id": 2
-  },
-  { 
-    "name": "Dan Abramov", 
-    "number": "12-43-234345",
-    "id": 3
-  },
-  { 
-    "name": "Mary Poppendieck", 
-    "number": "39-23-6423122",
-    "id": 4
-  }
-]
-
-
 app.get('/api/persons', (req, res, next) => {
   Person.find({}).then(result => {
     if (result) {
@@ -53,19 +27,18 @@ app.get('/api/persons', (req, res, next) => {
       res.status(404).end()
     }
   })
-  .catch(error => next(error))
-}) 
+    .catch(error => next(error))
+})
 
 app.get('/info', (req, res, next) => {
   const date = new Date()
   Person.find({}).then(result => {
     res.send(`<p>Phonebook has info for ${result.length} people</p> <p>${date}</p>`)
   })
-  .catch(error => next(error))
-  
+    .catch(error => next(error))
 })
 
-app.get('/api/persons/:id', (req, res) => {
+app.get('/api/persons/:id', (req, res, next) => {
   //const id = Number(req.params.id)
   //const person = persons.find(person => person.id === id)
   Person.findById(req.params.id)
@@ -77,7 +50,7 @@ app.get('/api/persons/:id', (req, res) => {
       }
     })
     .catch(error => next(error))
-}) 
+})
 
 app.delete('/api/persons/:id', (req, res, next) => {
   //const id = Number(req.params.id)
@@ -94,18 +67,18 @@ app.put('/api/persons/:id', (req, res, next) => {
     name: body.name,
     number: body.number
   }
-  Person.findByIdAndUpdate(req.params.id, person, { new: true})
+  Person.findByIdAndUpdate(req.params.id, person, { new: true })
     .then(updatedPerson => {
       res.json(updatedPerson)
     })
     .catch(error => next(error))
-})  
+})
 
 
 app.post('/api/persons', (req, res, next) => {
   const body = req.body
   //const id = Math.floor(Math.random()*1000000000000)
-  
+
   /*if (!body.name) {
     return res.status(400).json(
       {
@@ -121,7 +94,6 @@ app.post('/api/persons', (req, res, next) => {
       }
     )
   }
-  
   if (persons.map(person => person.name).includes(body.name)) {
     return res.status(400).json(
       {
@@ -139,13 +111,13 @@ app.post('/api/persons', (req, res, next) => {
   person.save().then(savedPerson => {
     res.json(savedPerson)
   })
-  .catch(error => next(error))
-}) 
+    .catch(error => next(error))
+})
 
 const errorHandler = (error, request, response, next) => {
   console.error(error.message)
   if (error.name === 'ValidationError') {
-    return response.status(400).json({error: error.message})
+    return response.status(400).json({ error: error.message })
   }
   next(error)
 }

@@ -7,7 +7,7 @@ console.log(process.argv)
 
 const url = `mongodb+srv://fullstack:${password}@cluster0-j1rcu.mongodb.net/puhelinluettelo?retryWrites=true&w=majority`
 
-mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
 
 const personSchema = new mongoose.Schema({
   name: String,
@@ -24,7 +24,7 @@ if (process.argv.length===3) {
     })
     mongoose.connection.close()
   })
-} else if (process.argv.length==5) {
+} else if (process.argv.length===5) {
   const person = new Person({
     name: name,
     number: number
@@ -35,5 +35,5 @@ if (process.argv.length===3) {
   })
 } else {
   mongoose.connection.close()
-}  
+}
 
